@@ -1,0 +1,112 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: ""
+Resources:
+  BotRuntimeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lexv2.amazonaws.com
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        - PolicyName: LexRuntimeRolePolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "polly:SynthesizeSpeech"
+                  - "comprehend:DetectSentiment"
+                Resource: "*"
+
+  LexBot:
+    DependsOn: BotRuntimeRole
+    Type: AWS::Lex::Bot
+    Properties:
+      Name: "SearchQueries"
+      RoleArn: !GetAtt BotRuntimeRole.Arn
+      DataPrivacy:
+        ChildDirected: false
+      IdleSessionTTLInSeconds: 300
+      Description: "Assignment 2"
+      AutoBuildBotLocales: false
+      BotLocales:
+        - LocaleId: "en_US"
+          Description: "Assignment 2"
+          NluConfidenceThreshold: 0.40
+          VoiceSettings:
+            VoiceId: "Ivy"
+          Intents:
+            - Name: "SearchIntent"
+              Description: "Intent to pick photos"
+              SampleUtterances:
+                - Utterance: "I would like to see ​{Primary}​"
+                - Utterance: "I would like to see ​{Primary}​ and ​{Secondary}​"
+                - Utterance: "{Primary}​ and ​{Secondary}​"
+                - Utterance: "{Primary}​"
+                - Utterance: "I would like to see photos with ​{Primary}​"
+                - Utterance: "I would like to see photos with ​{Primary}​ and ​{Secondary}​"
+                - Utterance: "Show me photos with ​{Primary}​"
+                - Utterance: "Show me photos with ​{Primary}​ and ​{Secondary}​"
+                - Utterance: "Show me ​{Primary}​ and ​{Secondary}​"
+                - Utterance: "Show me ​{Primary}​"
+              SlotPriorities:
+                - Priority: 2
+                  SlotName: Secondary
+                - Priority: 1
+                  SlotName: Primary
+              Slots:
+                - Name: "Primary"
+                  Description: "Primary"
+                  SlotTypeName: "AMAZON.AlphaNumeric"
+                  ValueElicitationSetting:
+                    SlotConstraint: "Required"
+                    PromptSpecification:
+                      MessageGroupsList:
+                        - Message:
+                            PlainTextMessage:
+                              Value: "What do you want to search for?"
+                      MaxRetries: 3
+                      AllowInterrupt: false
+                - Name: "Secondary"
+                  Description: "Secondary"
+                  SlotTypeName: "AMAZON.AlphaNumeric"
+                  ValueElicitationSetting:
+                    SlotConstraint: "Required"
+                    PromptSpecification:
+                      MessageGroupsList:
+                        - Message:
+                            PlainTextMessage:
+                              Value: "What do you want to search for?"
+                      MaxRetries: 3
+                      AllowInterrupt: false
+            - Name: "FallbackIntent"
+              Description: "Default intent when no other intent matches"
+              ParentIntentSignature: "AMAZON.FallbackIntent"
+
+  botversion:
+    DependsOn: LexBot
+    Type: AWS::Lex::BotVersion
+    Properties:
+      BotId: !Ref LexBot
+      BotVersionLocaleSpecification:
+        - LocaleId: en_US
+          BotVersionLocaleDetails:
+            SourceBotVersion: DRAFT
+      Description: OrderFlowers Version
+
+  botalias:
+    DependsOn: botversion
+    Type: AWS::Lex::BotAlias
+    Properties:
+      BotId: !Ref LexBot
+      BotAliasName: "SeaA"
+      BotVersion: !GetAtt botversion.BotVersion
+      SentimentAnalysisSettings:
+        DetectSentiment: true
