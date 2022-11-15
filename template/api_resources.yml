@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+    Generator: "former2"
+Description: ""
+Resources:
+    ApiGatewayResource:
+        Type: "AWS::ApiGateway::Resource"
+        Properties:
+            RestApiId: "8maait0om2"
+            PathPart: "{bucket}"
+            ParentId: "uoi0uv8nd9"
+
+    ApiGatewayResource2:
+        Type: "AWS::ApiGateway::Resource"
+        Properties:
+            RestApiId: "8maait0om2"
+            PathPart: "upload"
+            ParentId: "uoi0uv8nd9"
+
+    ApiGatewayResource3:
+        Type: "AWS::ApiGateway::Resource"
+        Properties:
+            RestApiId: "8maait0om2"
+            PathPart: "{filename}"
+            ParentId: !Ref ApiGatewayResource
+
+    ApiGatewayResource4:
+        Type: "AWS::ApiGateway::Resource"
+        Properties:
+            RestApiId: "8maait0om2"
+            PathPart: "search"
+            ParentId: "uoi0uv8nd9"
+

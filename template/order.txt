@@ -1,0 +1,18 @@
+Have to change bucket names a total of 4 times
+Create API then replace old ID with new one
+For api resources replace the parent id with the new one
+replace resource ids for methods
+for api stage replace the restapiid
+deploy api
+replace key and usage plan
+manually add usage key to plan
+
+Problems
+pipeline and webhook for github connection
+lex
+api(partly)
+
+Order
+lambda-policies		lambda-roles	lambdas		buckets		commit		build-policies	build-roles		build	pipeline-policies	pipeline-roles
+pipeline1-2	pipeline	webhook		api		api_models		api_resources	api_methods		api+stage		api_dep		api_key		api-plan	api-usage
+	

@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+    Generator: "former2"
+Description: ""
+Resources:
+    ApiGatewayStage:
+        Type: "AWS::ApiGateway::Stage"
+        Properties:
+            StageName: "dev"
+            DeploymentId: "9sehxe"
+            RestApiId: "8maait0om2"
+            CacheClusterEnabled: false
+            MethodSettings: 
+              - 
+                CacheDataEncrypted: false
+                CacheTtlInSeconds: 300
+                CachingEnabled: false
+                DataTraceEnabled: true
+                HttpMethod: "*"
+                LoggingLevel: "INFO"
+                MetricsEnabled: false
+                ResourcePath: "/*"
+                ThrottlingBurstLimit: 5000
+                ThrottlingRateLimit: 10000
+            TracingEnabled: false

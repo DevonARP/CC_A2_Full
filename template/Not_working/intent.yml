@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+    Generator: "former2"
+Description: ""
+Resources:
+    AWS::Lex::Bot Intent:
+    Type: "AWS::Lex::Bot Intent"
+    Name: SearchIntent
+    slots:
+        -
+            name: Secondary
+            slotConstraint: Optional
+            slotType: AMAZON.AlphaNumeric
+            valueElicitationPrompt:
+                messages:
+                    -
+                        contentType: PlainText
+                        content: What do you want to search for?
+                maxAttempts: 2
+            priority: 2
+            obfuscationSetting: NONE
+        -
+            name: Primary
+            slotConstraint: Required
+            slotType: AMAZON.AlphaNumeric
+            valueElicitationPrompt:
+                messages:
+                    -
+                        contentType: PlainText
+                        content: What do you want to search for?
+                maxAttempts: 2
+            priority: 1
+            obfuscationSetting: NONE
+    sampleUtterances:
+        - Show me {Primary}
+        - Show me {Primary} and {Secondary}
+        - Show me photos with {Primary} and {Secondary}
+        - Show me photos with {Primary}
+        - I would like to see photos with {Primary} and {Secondary}
+        - I would like to see photos with {Primary}
+        - {Primary}
+        - {Primary} and {Secondary}
+        - I would like to see {Primary} and {Secondary}
+        - I would like to see {Primary}
+    fulfillmentActivity:
+        type: ReturnIntent
+    lastUpdatedDate: 2022-11-03T01:55:02.687Z
+    createdDate: 2022-10-25T05:15:45.380Z
+    version: $LATEST
+    checksum: 9198f5d7-73a7-4270-83cb-e79aa26c8ece

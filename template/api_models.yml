@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+    Generator: "former2"
+Description: ""
+Resources:
+    ApiGatewayModel:
+        Type: "AWS::ApiGateway::Model"
+        Properties:
+            RestApiId: "8maait0om2"
+            Name: "Photo"
+            Schema: |
+                {
+                  "type" : "object",
+                  "properties" : {
+                    "url" : {
+                      "type" : "string"
+                    },
+                    "labels" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "string"
+                      }
+                    }
+                  }
+                }
+            ContentType: "application/json"
+
+    ApiGatewayModel2:
+        Type: "AWS::ApiGateway::Model"
+        Properties:
+            RestApiId: "8maait0om2"
+            Name: "SearchResponse"
+            Schema: !Sub |
+                {
+                  "type" : "object",
+                  "properties" : {
+                    "results" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref":"https://apigateway.amazonaws.com/restapis/8maait0om2/models/${ApiGatewayModel}"
+                      }
+                    }
+                  }
+                }
+            ContentType: "application/json"
+
+    ApiGatewayModel3:
+        Type: "AWS::ApiGateway::Model"
+        Properties:
+            RestApiId: "8maait0om2"
+            Name: "Error"
+            Schema: |
+                {
+                  "type" : "object",
+                  "properties" : {
+                    "code" : {
+                      "type" : "integer",
+                      "format" : "int32"
+                    },
+                    "message" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+            ContentType: "application/json"
+
+    ApiGatewayModel4:
+        Type: "AWS::ApiGateway::Model"
+        Properties:
+            RestApiId: "8maait0om2"
+            Name: "MODEL54acd3"
+            Schema: |
+                {
+                  "type" : "object",
+                  "properties" : { }
+                }
+            ContentType: "application/json"
+

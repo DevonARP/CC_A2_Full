@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+    Generator: "former2"
+Description: ""
+Resources:
+    ApiGatewayUsagePlan:
+        Type: "AWS::ApiGateway::UsagePlan"
+        Properties:
+            UsagePlanName: "main"
+            ApiStages: 
+              - 
+                ApiId: "8maait0om2"
+                Stage: "dev"
+            Throttle: 
+                BurstLimit: 500
+                RateLimit: 1000
+            Quota: 
+                Limit: 1000000
+                Offset: 0
+                Period: "MONTH"

@@ -1,0 +1,11 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+    Generator: "former2"
+Description: ""
+Resources:
+    ApiGatewayUsagePlanKey:
+        Type: "AWS::ApiGateway::UsagePlanKey"
+        Properties:
+            KeyId: "5kavvwohyi"
+            KeyType: "API_KEY"
+            UsagePlanId: "VqaESPZtbH2m1JBU5iEEJ5fQA2S8O1IN9fnLd95w"

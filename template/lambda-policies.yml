@@ -1,0 +1,100 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+    Generator: "former2"
+Description: ""
+Resources:
+    IAMManagedPolicy:
+        Type: "AWS::IAM::ManagedPolicy"
+        Properties:
+            ManagedPolicyName: "AWSLambdaVPCAccessExecutionRole-6f0b9bdc-5bd4-4290-ba61-4a8557871757"
+            Path: "/service-role/"
+            PolicyDocument: |
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "ec2:CreateNetworkInterface",
+                                "ec2:DeleteNetworkInterface",
+                                "ec2:DescribeNetworkInterfaces"
+                            ],
+                            "Resource": "*"
+                        }
+                    ]
+                }
+
+    IAMManagedPolicy2:
+        Type: "AWS::IAM::ManagedPolicy"
+        Properties:
+            ManagedPolicyName: "AWSLambdaBasicExecutionRole-cb0feb20-c6f8-4336-bc33-87d7763e83e8"
+            Path: "/service-role/"
+            PolicyDocument: !Sub |
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": "logs:CreateLogGroup",
+                            "Resource": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents"
+                            ],
+                            "Resource": [
+                                "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/index-photos:*"
+                            ]
+                        }
+                    ]
+                }
+
+    IAMManagedPolicy3:
+        Type: "AWS::IAM::ManagedPolicy"
+        Properties:
+            ManagedPolicyName: "AWSLambdaBasicExecutionRole-f661be43-dd6c-4bc8-97cc-e1ad167580c2"
+            Path: "/service-role/"
+            PolicyDocument: !Sub |
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": "logs:CreateLogGroup",
+                            "Resource": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents"
+                            ],
+                            "Resource": [
+                                "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/search-photos:*"
+                            ]
+                        }
+                    ]
+                }
+
+    IAMManagedPolicy4:
+        Type: "AWS::IAM::ManagedPolicy"
+        Properties:
+            ManagedPolicyName: "postlexforsearchqueries"
+            Path: "/"
+            PolicyDocument: !Sub |
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "Stmt1585178834391",
+                            "Action": [
+                                "lex:PostText"
+                            ],
+                            "Effect": "Allow",
+                            "Resource": "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:SearchQueries:SeaA"
+                        }
+                    ]
+                }
+

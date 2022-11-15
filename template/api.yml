@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+    Generator: "former2"
+Description: ""
+Resources:
+    ApiGatewayRestApi:
+        Type: "AWS::ApiGateway::RestApi"
+        Properties:
+            Name: "AI Photo Search2"
+            Description: "AI Photo Search application, built during the Cloud and Big Data course at Columbia University."
+            ApiKeySourceType: "HEADER"
+            BinaryMediaTypes: 
+              - "image/jpg"
+              - "image/jpeg"
+              - "image/png"
+            EndpointConfiguration: 
+                Types: 
+                  - "REGIONAL"
+
